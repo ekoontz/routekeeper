@@ -12,13 +12,17 @@ function initialize() {
 				function(event) {
 				    placeMarker(event.latLng);
 				});
+
+    $("#markerlist").text("");
 }
   
 function placeMarker(location) {
-  var clickedLocation = new google.maps.LatLng(location);
-  var marker = new google.maps.Marker({
-      position: location, 
-      map: map
-  });
 
+    var clickedLocation = new google.maps.LatLng(location);
+    var marker = new google.maps.Marker({
+	position: location, 
+	map: map
+    });
+    $("#markerlist").append("<div>You chose location:..</div>");
+    
 }
