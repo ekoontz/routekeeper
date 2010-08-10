@@ -1,0 +1,15 @@
+div.component {
+    margin:0.25em;
+    border:3px solid #cedecc;
+}
+
+#map_container {
+    width:50%;
+    height:80%;
+}
+
+#controls {
+    float:right;
+    width:40%;
+    padding:0.25em;
+}
