@@ -32,3 +32,7 @@ div.component {
     padding:0.25em;
 }
 
+.loc {
+    background: #cedecc;
+    margin-top:1px;
+}

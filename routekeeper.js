@@ -23,6 +23,6 @@ function placeMarker(location) {
 	position: location, 
 	map: map
     });
-    $("#markerlist").append("<div>You chose location:..</div>");
+    $("#markerlist").append("<li class='loc'>"+location.lat()+","+location.lng()+"</li>");
     
 }
