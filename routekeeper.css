@@ -1,0 +1,6 @@
+html { height: 100% }
+body { height: 100%; margin: 0px; padding: 0px }
+div.component { border:2px solid #cecece; padding:0.5em;}
+#map_canvas { height: 100% }
+#map_container { height: 50%;width:45%;margin:0.25em }
+#controls {float:right;width:40%;margin-right:1em}
