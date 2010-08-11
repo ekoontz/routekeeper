@@ -25,29 +25,25 @@ function placeMarker(location) {
     });
     $("#markerlist").append("<li class='loc'>"+location.lat()+","+location.lng()+"</li>");
 
-    address = "123 Main St.";
-    $("#addresslist").append("<li class='loc'>"+address+"</li>");
-
-    /* 
-
-      Do ajax call e.g. : 
-     e.g.:
-       curl "http://maps.google.com/maps/api/geocode/json?latlng=37.79,-122.444&sensor=true"
-     (See also: http://code.google.com/apis/maps/documentation/geocoding/#ReverseGeocoding)
-
-     Will return JSON that looks like: 
-
-{
-  "status": "OK",
-  "results": [ {
-    "types": [ "street_address" ],
-    "formatted_address": "2038 Baker St, San Francisco, CA 94115, USA",
-..
-     } ]
-..
-}
-
-*/
-    
+    $.ajax({ 
+	// local proxy:
+	// url: "http://localhost:8000/maps/api/geocode/json?latlng=" + location.lat() + "," + location.lng() + "&sensor=true",
+	// if hosted on google.com:
+	// url: "http://maps.google.com/maps/api/geocode/json?latlng=" + location.lat() + "," + location.lng() + "&sensor=true",
+	// local or disconnected testing:
+	url: "geocode_response.json",
+	dataType: 'json',
+	success: function(data,textStatus,XMLHttpRequest){
+	    if (textStatus == "success") {
+		if (data) {
+		    address = data.results[0].formatted_address;
+		    $("#addresslist").append("<li class='loc'>"+address+"</li>");
+		}
+		else {
+		    alert('no data.');
+		}
+	    }
+	}
+    });
 
 }
