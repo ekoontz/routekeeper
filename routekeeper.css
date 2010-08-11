@@ -21,6 +21,10 @@ h1 {
     height:100% 
 }
 
+#map_container h2 { 
+    text-align:center;
+}
+
 div.component {
     margin:0.25em;
     border:3px solid #cedecc;
@@ -39,5 +43,14 @@ div.component {
 
 .loc {
     background: #cedecc;
-    margin-top:1px;
+    margin-top:3px;
+    margin-bottom:3px;
+}
+
+#markerlist {
+    border: 2px solid #cedecc;
+}
+
+#addresslist {
+    border: 2px solid #cedecc;
 }

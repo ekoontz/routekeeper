@@ -24,5 +24,30 @@ function placeMarker(location) {
 	map: map
     });
     $("#markerlist").append("<li class='loc'>"+location.lat()+","+location.lng()+"</li>");
+
+    address = "123 Main St.";
+    $("#addresslist").append("<li class='loc'>"+address+"</li>");
+
+    /* 
+
+      Do ajax call e.g. : 
+     e.g.:
+       curl "http://maps.google.com/maps/api/geocode/json?latlng=37.79,-122.444&sensor=true"
+     (See also: http://code.google.com/apis/maps/documentation/geocoding/#ReverseGeocoding)
+
+     Will return JSON that looks like: 
+
+{
+  "status": "OK",
+  "results": [ {
+    "types": [ "street_address" ],
+    "formatted_address": "2038 Baker St, San Francisco, CA 94115, USA",
+..
+     } ]
+..
+}
+
+*/
     
+
 }
