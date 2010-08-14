@@ -1,27 +1,16 @@
 var net = require('net');
 var http = require('http');
-var qs = require('querystring');
-var url = require('url');
+var url_req = require('url');
 
-function lat(url_string) {
-    return url.parse(url_string,true).query.lat;
-}
-
-function lng(url_string) {
-    return url.parse(url_string,true).query.lng;
-}
-
-console.log("starting google proxy.");
-
-http.createServer(function (req,res) {
+var routes = {
+    '/map': function (req,res) {
 
 	var google = http.createClient(80, 'maps.google.com');
 	google_url = "/maps/api/geocode/json?latlng=" + lat(req.url) + "," + lng(req.url) + "&sensor=true";
-
-	var request = google.request('GET', google_url,
-				     {'host': 'maps.google.com'});
+	
+	var request = google.request('GET', google_url,{'host': 'maps.google.com'});
 	request.end();
-
+	
 	request.on('response', function (response) {
 		console.log(google_url + ' STATUS: ' + response.statusCode);
 		// content_type should normally be: 
@@ -30,8 +19,9 @@ http.createServer(function (req,res) {
 		console.log(" content type: " + response.headers['content-type']);
 		
 		response.setEncoding('utf8');
-		res.writeHead(200, {'Content-Type': content_type});
-
+		//		res.writeHead(200, {'Content-Type': content_type});
+		// for debugging
+		res.writeHead(200, {'Content-Type': "text/plain"});
 		response.on('data', function (chunk) {
 			res.write(chunk);
 		    });
@@ -39,7 +29,38 @@ http.createServer(function (req,res) {
 			res.end();
 		    });
 	    });
+    }
+};
 
+function lat(url_string) {
+    console.log("url_string:" + url_string);
+    return url_req.parse(url_string,true).query.lat;
+}
 
+function lng(url_string) {
+    return url_req.parse(url_string,true).query.lng;
+}
+
+function pathname(url_string) {
+    return url_req.parse(url_string).pathname;
+}
+
+function dispatch(pathname,req,res) {
+
+    var route = routes[pathname];
+    if (route) {
+	route(req,res);
+    }
+    else {
+	res.writeHead(404, {'Content-Type': "text/html"});
+	res.write("<h2>No route found for URL: " + req.url+"</h2>");
+	res.end();
+    }
+}
+
+console.log("starting google proxy.");
+
+http.createServer(function (req,res) {
+	dispatch(pathname(req.url),req,res);
     }).listen(8124);
 
