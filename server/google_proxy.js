@@ -1,8 +1,30 @@
-var net = require('net');
 var http = require('http');
 var url_req = require('url');
+var fs = require('fs');
+
+function lat(url_string) {
+    console.log("url_string:" + url_string);
+    return url_req.parse(url_string,true).query.lat;
+}
+
+function lng(url_string) {
+    return url_req.parse(url_string,true).query.lng;
+}
+
+function pathname(url_string) {
+    return url_req.parse(url_string).pathname;
+}
 
 var routes = {
+    '/routekeeper': function (req,res) {
+	res.writeHead(200, {'Content-Type': "text/html"});
+	fd = fs.open("/home/ekoontz/routekeeper/index.html");
+	fs.read(fd,buffer);
+	res.write(buffer);
+	res.end();
+	
+    },
+
     '/map': function (req,res) {
 
 	var google = http.createClient(80, 'maps.google.com');
@@ -20,7 +42,7 @@ var routes = {
 		
 		response.setEncoding('utf8');
 		//		res.writeHead(200, {'Content-Type': content_type});
-		// for debugging
+		// for debugging: 'text/plain'; for production: content_type.
 		res.writeHead(200, {'Content-Type': "text/plain"});
 		response.on('data', function (chunk) {
 			res.write(chunk);
@@ -31,19 +53,6 @@ var routes = {
 	    });
     }
 };
-
-function lat(url_string) {
-    console.log("url_string:" + url_string);
-    return url_req.parse(url_string,true).query.lat;
-}
-
-function lng(url_string) {
-    return url_req.parse(url_string,true).query.lng;
-}
-
-function pathname(url_string) {
-    return url_req.parse(url_string).pathname;
-}
 
 function dispatch(pathname,req,res) {
 
