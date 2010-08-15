@@ -54,3 +54,10 @@ div.component {
 #addresslist {
     border: 2px solid #cedecc;
 }
+tr.d0 td {
+	background-color: #ff0099; color: black;
+}
+tr.d1 td {
+	background-color: #CCCC44; color: black;
+}
+

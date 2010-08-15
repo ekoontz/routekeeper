@@ -1,4 +1,5 @@
 var map;
+var rowclass = "d0";
 function initialize() {
   var myLatlng = new google.maps.LatLng(37.79,-122.444922);
   var myOptions = {
@@ -24,6 +25,7 @@ function placeMarker(location) {
 	map: map
     });
     $("#markerlist").append("<li class='loc'>"+location.lat()+","+location.lng()+"</li>");
+   
 
     $.ajax({ 
 	// local proxy:
@@ -37,7 +39,13 @@ function placeMarker(location) {
 	    if (textStatus == "success") {
 		if (data) {
 		    address = data.results[0].formatted_address;
-		    $("#addresslist").append("<li class='loc'>"+address+"</li>");
+		    $("#addresslist").append("<tr class='"+rowclass+"'><td>"+address+"</td></tr>");
+		    if (rowclass == "d1"){   
+		        rowclass="d0";
+		    }
+		    else {   
+			rowclass="d1"; 
+	            }   
 		}
 		else {
 		    alert('no data.');
