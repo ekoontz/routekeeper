@@ -6,6 +6,10 @@ I wanted to learn more about :
 
 1. node.js:http://nodejs.org (the web server framework written in Javascript)
 
+1. Google Maps API:http://code.google.com/apis/maps/documentation/geocoding/#ReverseGeocoding
+1. jQuery:http://api.jquery.com/
+1. JSON
+
 node.js is really cool - it is a great way to apply functional
 programming ideas to servers. Besides that, it's:
 
@@ -13,10 +17,6 @@ programming ideas to servers. Besides that, it's:
 * scalable: no while(1) loop, no thread pool or set limit on number of threads
 * flexible: Easy to extend with callbacks.
 * concise: DRY, very easy to factor out repetitive code
-
-1. Google Maps API:http://code.google.com/apis/maps/documentation/geocoding/#ReverseGeocoding
-1. jQuery:http://api.jquery.com/
-1. JSON
 
 # Future work
 
