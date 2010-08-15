@@ -4,7 +4,16 @@ h2. Motivation
 
 I wanted to learn more about :
 
-1. node.js:http://nodejs.org (the web framework written in Javascript)
+1. node.js:http://nodejs.org (the web server framework written in Javascript)
+
+node.js is really cool - it is a great way to apply functional
+programming ideas to servers. Besides that, it's:
+
+* fast: 'nodejs' is a native executable that leverages Google's V8 Javascript libraries (same used in Google Chrome).
+* scalable: no while(1) loop, no thread pool or set limit on number of threads
+* flexible: Easy to extend with callbacks.
+* concise: DRY, very easy to factor out repetitive code
+
 1. Google Maps API:http://code.google.com/apis/maps/documentation/geocoding/#ReverseGeocoding
 1. jQuery:http://api.jquery.com/
 1. JSON
@@ -19,7 +28,7 @@ h3. Backend/technical perspective
 
 h3. User perspective
 
-1. Saving and sharing routes
-1. Showing intersections between routes
-1. Wikipedia integration (finding points of interest in Wikipdia using Lat/Long coords)
+1. Saving and sharing routes 1. Showing intersections between routes
+1. Wikipedia integration (finding points of interest in Wikipdia using
+Lat/Long coords)
 
