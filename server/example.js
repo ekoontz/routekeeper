@@ -1,7 +1,11 @@
-var http = require('http');
-http.createServer(function (request, response) {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Hello World\n');
-  }).listen(8124);
-console.log('Server running at http://127.0.0.1:8124/');
-
+var net = require('net');
+net.createServer(function (socket) {
+	socket.setEncoding("utf8");
+	socket.write("Echo server\r\n");
+	socket.on("data", function (data) {
+		socket.write(data);
+	    });
+	socket.on("end", function () {
+		socket.end();
+	    });
+    }).listen(8124, "127.0.0.1");

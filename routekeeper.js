@@ -1,5 +1,6 @@
 var map;
 var rowclass = "d0";
+var number = 1;
 function initialize() {
   var myLatlng = new google.maps.LatLng(37.79,-122.444922);
   var myOptions = {
@@ -18,7 +19,7 @@ function initialize() {
 }
   
 function placeMarker(location) {
-
+    
     var clickedLocation = new google.maps.LatLng(location);
     var marker = new google.maps.Marker({
 	position: location, 
@@ -28,24 +29,20 @@ function placeMarker(location) {
    
 
     $.ajax({ 
-	// local proxy:
-	// url: "http://localhost:8000/maps/api/geocode/json?latlng=" + location.lat() + "," + location.lng() + "&sensor=true",
-	// if hosted on google.com:
-	// url: "http://maps.google.com/maps/api/geocode/json?latlng=" + location.lat() + "," + location.lng() + "&sensor=true",
-	// local or disconnected testing:
-	url: "geocode_response.json",
+	url: "/map?lat=" + location.lat() + "&lng=" + location.lng() + "&sensor=true",
 	dataType: 'json',
 	success: function(data,textStatus,XMLHttpRequest){
 	    if (textStatus == "success") {
 		if (data) {
 		    address = data.results[0].formatted_address;
-		    $("#addresslist").append("<tr class='"+rowclass+"'><td>"+address+"</td></tr>");
+		    $("#addresslist").append("<tr class='"+rowclass+"'><td>"+number.toString()+"</td><td>"+address+"</td></tr>");
 		    if (rowclass == "d1"){   
 		        rowclass="d0";
 		    }
 		    else {   
 			rowclass="d1"; 
 	            }   
+		    number = number +1;
 		}
 		else {
 		    alert('no data.');
