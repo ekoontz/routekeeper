@@ -1,6 +1,6 @@
-h1. Routekeeper : Plan and save your walking routes through your city! 
+# Routekeeper : Plan and save your walking routes through your city! 
 
-h2. Motivation
+## Motivation
 
 I wanted to learn more about :
 
