@@ -28,12 +28,7 @@ function placeMarker(location) {
    
 
     $.ajax({ 
-	// local proxy:
-	// url: "http://localhost:8000/maps/api/geocode/json?latlng=" + location.lat() + "," + location.lng() + "&sensor=true",
-	// if hosted on google.com:
-	// url: "http://maps.google.com/maps/api/geocode/json?latlng=" + location.lat() + "," + location.lng() + "&sensor=true",
-	// local or disconnected testing:
-	url: "geocode_response.json",
+	url: "/map?lat=" + location.lat() + "&lng=" + location.lng() + "&sensor=true",
 	dataType: 'json',
 	success: function(data,textStatus,XMLHttpRequest){
 	    if (textStatus == "success") {

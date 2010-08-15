@@ -5,7 +5,6 @@ var fs_prefix = "/home/ekoontz/routekeeper";
 
 
 function lat(url_string) {
-    console.log("url_string:" + url_string);
     return url_req.parse(url_string,true).query.lat;
 }
 
@@ -17,31 +16,38 @@ function pathname(url_string) {
     return url_req.parse(url_string).pathname;
 }
 
+function log(status,req,content_type) {
+    content_type = typeof(content_type) != 'undefined' ? content_type : "";
+    console.log(status + " " + req.url + " ("+content_type+")");
+}
+
 function routes(pathname,req,res) {
+    // 1. static 
     retval = pathname.match(new RegExp('^/[^/]+[.](js|html|css)$'));
 
     if (retval) {
-	var mimetype = "text/"+retval[1];
+	var content_type = "text/"+retval[1];
 	return function(req,res) {
 	    var filename = fs_prefix + retval[0];
 	    fs.readFile(filename, function (err, data) {
 		    if (err) {
-			console.log("500 " + req.url);
+			log("500",req);
 			res.writeHead(500, {'Content-Type': "text/html"});
 			res.write("<h2>Error processing URL: " + req.url+"</h2>");
 			res.end();
 		    }
 		    else {
-			res.writeHead(200, {'Content-Type': mimetype});
+			res.writeHead(200, {'Content-Type': content_type});
 			res.write(data);
 			res.end();
-			console.log("200 " + req.url + "("+mimetype+")");
+			log("200",req,content_type);
 		    }
 		});
 	}
     }
-    
-    if (pathname == "map") {
+
+    // 2. dynamic: google map proxy
+    if (pathname == "/map") {
 	return function (req,res) {
 	    var google = http.createClient(80, 'maps.google.com');
 	    google_url = "/maps/api/geocode/json?latlng=" + lat(req.url) + "," + lng(req.url) + "&sensor=true";
@@ -50,21 +56,18 @@ function routes(pathname,req,res) {
 	    request.end();
 	    
 	    request.on('response', function (response) {
-		    console.log(google_url + ' STATUS: ' + response.statusCode);
-		    // content_type should normally be: 
+		    // content_type should be: 
 		    //    'application/json; charset=UTF-8'
 		    content_type = response.headers['content-type'];
-		    console.log(" content type: " + response.headers['content-type']);
 		    
 		    response.setEncoding('utf8');
-		    //		res.writeHead(200, {'Content-Type': content_type});
-		    // for debugging: 'text/plain'; for production: content_type.
-		    res.writeHead(200, {'Content-Type': "text/plain"});
+		    res.writeHead(200, {'Content-Type': content_type});
 		    response.on('data', function (chunk) {
 			    res.write(chunk);
 			});
 		    response.on('end',function() {
 			    res.end();
+			    log("200",req,content_type);
 			});
 		});
 	}
@@ -72,13 +75,13 @@ function routes(pathname,req,res) {
     
 };
 
-function dispatch(pathname,req,res) {
-    var route = routes(pathname,req,res);
+function dispatch(req,res) {
+    var route = routes(pathname(req.url),req,res);
     if (route) {
 	route(req,res);
     }
     else {
-	console.log("404: No route found for URL: " + req.url);
+	log("404",req);
 	res.writeHead(404, {'Content-Type': "text/html"});
 	res.write("<h2>No route found for URL: " + req.url+"</h2>");
 	res.end();
@@ -88,6 +91,6 @@ function dispatch(pathname,req,res) {
 console.log("starting google proxy.");
 
 http.createServer(function (req,res) {
-	dispatch(pathname(req.url),req,res);
+	dispatch(req,res);
     }).listen(8124);
 
