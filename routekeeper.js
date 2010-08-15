@@ -1,5 +1,6 @@
 var map;
 var rowclass = "d0";
+var number = 1;
 function initialize() {
   var myLatlng = new google.maps.LatLng(37.79,-122.444922);
   var myOptions = {
@@ -18,7 +19,7 @@ function initialize() {
 }
   
 function placeMarker(location) {
-
+    
     var clickedLocation = new google.maps.LatLng(location);
     var marker = new google.maps.Marker({
 	position: location, 
@@ -34,13 +35,14 @@ function placeMarker(location) {
 	    if (textStatus == "success") {
 		if (data) {
 		    address = data.results[0].formatted_address;
-		    $("#addresslist").append("<tr class='"+rowclass+"'><td>"+address+"</td></tr>");
+		    $("#addresslist").append("<tr class='"+rowclass+"'><td>"+number.toString()+"</td><td>"+address+"</td></tr>");
 		    if (rowclass == "d1"){   
 		        rowclass="d0";
 		    }
 		    else {   
 			rowclass="d1"; 
 	            }   
+		    number = number +1;
 		}
 		else {
 		    alert('no data.');
