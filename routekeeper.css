@@ -51,6 +51,11 @@ div.component {
     border: 2px solid #cedecc;
 }
 
+#addresslist_holder {
+    height:8em;
+    overflow:scroll;
+}
+
 #addresslist {
     border: 2px solid #cedecc;
 }
