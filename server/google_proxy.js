@@ -3,6 +3,9 @@ var url_req = require('url');
 var fs = require('fs');
 var fs_prefix = "/home/ekoontz/routekeeper";
 
+var path_to_alias = {
+    "/": "/hello.html"
+}
 
 function lat(url_string) {
     return url_req.parse(url_string,true).query.lat;
@@ -12,16 +15,20 @@ function lng(url_string) {
     return url_req.parse(url_string,true).query.lng;
 }
 
-function pathname(url_string) {
+function get_pathname(url_string) {
     return url_req.parse(url_string).pathname;
 }
 
 function log(status,req,content_type) {
     content_type = typeof(content_type) != 'undefined' ? content_type : "";
-    console.log(status + " " + req.url + " ("+content_type+")");
+    var alias_log = "";
+    if (path_to_alias[req.url]) {
+	alias_log = " (=>" + path_to_alias[req.url] +  ")";
+    }
+    console.log(status + " " + req.url + alias_log + " ("+content_type+")");
 }
 
-function routes(pathname,req,res) {
+function routes(req,res,pathname) {
     // 1. static 
     retval = pathname.match(new RegExp('^/[^/]+[.](js|html|css)$'));
 
@@ -75,8 +82,15 @@ function routes(pathname,req,res) {
     
 };
 
-function dispatch(req,res) {
-    var route = routes(pathname(req.url),req,res);
+function dispatch(req,res,pathname) {
+    pathname = typeof(pathname) != 'undefined' ? pathname : get_pathname(req.url);
+
+    var alias = path_to_alias[pathname];
+    if (alias) {
+	return dispatch(req,res,alias);
+    }
+
+    var route = routes(req,res,pathname);
     if (route) {
 	route(req,res);
     }
