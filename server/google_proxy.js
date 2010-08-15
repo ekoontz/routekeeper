@@ -16,13 +16,13 @@ function pathname(url_string) {
 }
 
 var routes = {
-    '/routekeeper': function (req,res) {
-	res.writeHead(200, {'Content-Type': "text/html"});
-	fd = fs.open("/home/ekoontz/routekeeper/index.html");
-	fs.read(fd,buffer);
-	res.write(buffer);
-	res.end();
-	
+    '/routekeeper/hello.html': function (req,res) {
+	fs.readFile("/home/ekoontz/routekeeper/hello.html", function (err, data) {
+		if (err) throw err;
+		res.writeHead(200, {'Content-Type': "text/html"});
+		res.write(data);
+		res.end();
+	    });
     },
 
     '/map': function (req,res) {
@@ -61,6 +61,7 @@ function dispatch(pathname,req,res) {
 	route(req,res);
     }
     else {
+	console.log("404: No route found for URL: " + req.url);
 	res.writeHead(404, {'Content-Type': "text/html"});
 	res.write("<h2>No route found for URL: " + req.url+"</h2>");
 	res.end();
