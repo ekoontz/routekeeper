@@ -10,7 +10,7 @@ I wanted to learn more about :
 1. [JSON](http://json.org/)
 
 node.js is really cool - it is a great way to apply functional
-programming ideas to servers. Besides that, it's:
+programming ideas to writing long-running server-based software (i.e. daemons). Besides that, it's:
 
 * fast: 'nodejs' is a native executable that leverages Google's V8 Javascript libraries (same used in Google Chrome).
 * scalable: no while(1) loop, no thread pool or set limit on number of threads
