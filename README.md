@@ -4,9 +4,9 @@
 
 I wanted to learn more about :
 
-1. node.js:http://nodejs.org (the web server framework written in Javascript)
-1. Google Maps API:http://code.google.com/apis/maps/documentation/geocoding/#ReverseGeocoding
-1. jQuery:http://api.jquery.com/
+1. [node.js](http://nodejs.org) (the web server framework written in Javascript)
+1. [Google Maps API](http://code.google.com/apis/maps/documentation/geocoding/#ReverseGeocoding)
+1. [jQuery](http://api.jquery.com/)
 1. JSON
 
 node.js is really cool - it is a great way to apply functional
