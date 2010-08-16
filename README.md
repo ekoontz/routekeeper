@@ -15,7 +15,7 @@ programming ideas to servers. Besides that, it's:
 * fast: 'nodejs' is a native executable that leverages Google's V8 Javascript libraries (same used in Google Chrome).
 * scalable: no while(1) loop, no thread pool or set limit on number of threads
 * flexible: Easy to extend with callbacks.
-* concise: DRY, very easy to factor out repetitive code
+* concise: Don't Repeat Yourself (DRY) very easy to accomplish due to use of the functional features of Javascript (e.g. function-passing): very easy to factor out repetitive code.
 
 # Future work
 
