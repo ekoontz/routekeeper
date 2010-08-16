@@ -27,7 +27,8 @@ programming ideas to servers. Besides that, it's:
 
 ## User perspective
 
-1. Saving and sharing routes 1. Showing intersections between routes
+1. Saving and sharing routes 
+1. Showing intersections between routes
 1. Wikipedia integration (finding points of interest in Wikipdia using
 Lat/Long coords)
 
