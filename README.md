@@ -21,7 +21,7 @@ programming ideas to servers. Besides that, it's:
 
 ## Backend/technical perspective
 
-1. PostgreSQL integration with node.js:http://github.com/ry/node_postgres
+1. [PostgreSQL integration with node.js](http://github.com/ry/node_postgres)
 2. Geometry stuff like intersections, drawing (walking) paths between points
 3. Dom listeners : how one node's update can trigger another AJAX actions.
 
