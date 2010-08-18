@@ -25,8 +25,6 @@ function placeMarker(location) {
 	position: location, 
 	map: map
     });
-    $("#markerlist").append("<li class='loc'>"+location.lat()+","+location.lng()+"</li>");
-   
 
     $.ajax({ 
 	url: "/map?lat=" + location.lat() + "&lng=" + location.lng() + "&sensor=true",
@@ -35,13 +33,14 @@ function placeMarker(location) {
 	    if (textStatus == "success") {
 		if (data) {
 		    address = data.results[0].formatted_address;
-		    $("#addresslist").append("<tr class='"+rowclass+"'><td>"+number.toString()+"</td><td>"+address+"</td></tr>");
+		    $("#addresslist").append("<tr id='row_"+number+"' style='display:none' class='"+rowclass+"'><td>"+number.toString()+"</td><td>"+address+"</td></tr>");
 		    if (rowclass == "d1"){   
 		        rowclass="d0";
 		    }
 		    else {   
 			rowclass="d1"; 
 	            }   
+		    $("#row_"+number).fadeIn("slow");
 		    number = number +1;
 		}
 		else {
