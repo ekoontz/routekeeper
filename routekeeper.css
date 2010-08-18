@@ -52,7 +52,7 @@ div.component {
 }
 
 #addresslist_holder {
-    height:8em;
+    height:20em;
     overflow:scroll;
 }
 
@@ -66,3 +66,14 @@ tr.d1 td {
 	background-color: #CCCC44; color: black;
 }
 
+#title {
+    float:left;
+}
+
+#controls {
+    float:right;
+}
+
+#addresses {
+    float:left;
+}
