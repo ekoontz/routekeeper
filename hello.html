@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Routekeeper: plan, save and share your walks</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link type="text/css" href="routekeeper.css" rel="stylesheet">
     </link>
@@ -14,16 +15,20 @@
   </head>
   <body onload="initialize()">
     <div id="controls" class="component">
-      <h1>Routekeeper</h1>
-      <p>Save your trips...who knows; it might <em>save your life!!</em></p>
-      <ul>
-       <li>My trips</li>
-       <li>Start a new trip</li>
-       <li>My account</li>
-      </ul>
-      <h2>Addresses</h2>
-      <div id="addresslist_holder">
-	<table id="addresslist"></table>
+      <div id="title">
+	<h1>Routekeeper</h1>
+      </div>
+      <div id="controls">
+	<ul>
+	  <li>My trips</li>
+	  <li>Start a new trip</li>
+	  <li>My account</li>
+	</ul>
+      </div>
+      <div id="addresses">
+	<div id="addresslist_holder">
+	  <table id="addresslist"></table>
+	</div>
       </div>
     </div>
     <div id="map_container" class="component">
