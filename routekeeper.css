@@ -31,6 +31,7 @@ div.component {
 }
 
 #map_container {
+    float:left;
     width:50%;
     height:80%;
 }
@@ -76,4 +77,12 @@ tr.d1 td {
 
 #addresses {
     float:left;
+}
+
+div.colophon {
+    width:auto;
+    float:right;
+    text-align:right;
+    border:1px solid #ccc;
+    background:#f0f0f0;
 }
