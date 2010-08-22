@@ -9,7 +9,7 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  
+
   google.maps.event.addListener(map, 'click', 
 				function(event) {
 				    placeMarker(event.latLng);
@@ -32,8 +32,14 @@ function placeMarker(location) {
 	success: function(data,textStatus,XMLHttpRequest){
 	    if (textStatus == "success") {
 		if (data) {
-		    address = data.results[0].formatted_address;
-		    $("#addresslist").append("<tr id='row_"+number+"' style='display:none' class='"+rowclass+"'><td>"+number.toString()+"</td><td>"+address+"</td></tr>");
+		    // 'formatted_address' will be something like:
+		    // '133-163 1st St, San Francisco, CA 94105, USA'
+		    // We'll take only the part before the first comma.
+		    var address = data.results[0].formatted_address;
+		    var address_components = address.match(new RegExp('^([^,]+)'));
+		    var street_address = address_components[1];
+
+		    $("#addresslist").append("<tr id='row_"+number+"' style='display:none' class='"+rowclass+"'><td>"+number.toString()+"</td><td>"+street_address+"</td></tr>");
 		    if (rowclass == "d1"){   
 		        rowclass="d0";
 		    }
@@ -41,6 +47,7 @@ function placeMarker(location) {
 			rowclass="d1"; 
 	            }   
 		    $("#row_"+number).fadeIn("slow");
+		    $("#initialprompt").fadeOut("slow");
 		    number = number +1;
 		}
 		else {
