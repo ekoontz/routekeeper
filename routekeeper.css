@@ -13,33 +13,8 @@ h1 {
     padding:0;
 }
 
-#map_canvas { 
-    height: 100% 
-}
-
-#map_container { 
-    height:100% 
-}
-
 #map_container h2 { 
     text-align:center;
-}
-
-div.component {
-    margin:0.25em;
-    border:3px solid #cedecc;
-}
-
-#map_container {
-    float:left;
-    width:50%;
-    height:80%;
-}
-
-#controls {
-    float:right;
-    width:40%;
-    padding:0.25em;
 }
 
 .loc {
@@ -50,11 +25,6 @@ div.component {
 
 #markerlist {
     border: 2px solid #cedecc;
-}
-
-#addresslist_holder {
-    height:20em;
-    overflow:scroll;
 }
 
 #addresslist {
@@ -71,14 +41,6 @@ tr.d1 td {
     float:left;
 }
 
-#controls {
-    float:right;
-}
-
-#addresses {
-    float:left;
-}
-
 div.colophon {
     width:auto;
     float:right;
@@ -86,3 +48,57 @@ div.colophon {
     border:1px solid #ccc;
     background:#f0f0f0;
 }
+
+#map_canvas { 
+    left:0;
+    top:0;
+    height: 100% 
+}
+
+#map_container { 
+    position:relative;
+    left:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background: #ccc;
+}
+
+.map_overlay {
+    position:absolute;
+    background: white;
+    border:3px solid #cedecc;
+    z-index: 1;
+    width:150px;
+    font-size:small;
+}
+
+#controls {
+    right:50px;
+    top:50px;
+    font-size:10pt;
+}
+
+#controls h1 {
+    font-size:12pt;
+}
+
+#addresses {
+    overflow:auto;
+    right:50px;
+    top:150px;
+    height:300px;
+}
+
+#colophon {
+    right:50px;
+    bottom:100px;
+}
+
+#controls div {
+    text-align:right;
+    padding-right:2px;
+    width:auto;
+}
+
+

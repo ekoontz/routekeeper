@@ -14,30 +14,21 @@
     </script>
   </head>
   <body onload="initialize()">
-    <div id="controls" class="component">
-      <div id="title">
-	<h1>Routekeeper</h1>
-      </div>
-      <div id="controls">
-	<ul>
-	  <li>My trips</li>
-	  <li>Start a new trip</li>
-	  <li>My account</li>
-	</ul>
-      </div>
-      <div id="addresses">
-	<div id="addresslist_holder">
-	  <table id="addresslist"></table>
-	</div>
-      </div>
-      <div class="colophon">
+    <div id="controls" class="map_overlay">
+      <h1>Routekeeper</h1>
+      <div>My trips</div>
+      <div>Start a new trip</div>
+      <div>My account</div>
+      <div  id="colophon">
 	<a href="http://github.com/ekoontz/routekeeper/">Source Code</a>
       </div>
-
     </div>
-    <div id="map_container" class="component">
-      <div id="map_canvas" style="width:100%; height:100%"></div>
-      <h2>Click on the map above to save a location to your route.</h2>
+    <div id="addresses" class="map_overlay">
+      <div id="addresslist_holder">
+	<h2 id="initialprompt">Click on a point on your route.</h2>
+	<table id="addresslist"></table>
+      </div>
     </div>
+    <div id="map_canvas">(map goes here)</div>
   </body>
 </html>
