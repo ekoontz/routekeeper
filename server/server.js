@@ -30,17 +30,29 @@ function log(status,req,content_type) {
 
 function routes(req,res,pathname) {
     // 1. static 
-    retval = pathname.match(new RegExp('^/[^/]+[.](js|html|css)$'));
+    pathname_components = pathname.match(new RegExp('^/([^/]+)[.](js|html|css)$'));
 
-    if (retval) {
-	var content_type = "text/"+retval[1];
+    if (pathname_components) {
+	var stem = pathname_components[1];
+	var suffix = pathname_components[2];
+	var content_type = "text/"+suffix;
 	return function(req,res) {
-	    var filename = fs_prefix + retval[0];
+	    var filename = fs_prefix + "/" + stem + "." + suffix;
 	    fs.readFile(filename, function (err, data) {
 		    if (err) {
 			log("500",req);
 			res.writeHead(500, {'Content-Type': "text/html"});
-			res.write("<h2>Error processing URL: " + req.url+"</h2>");
+			res.write("<h1>Error processing URL: " + req.url+"</h1>");
+			res.write("<h2><tt>server.js</tt> details:</h2>");
+			res.write("<div class='error details'>");
+			res.write("<table>");
+			res.write("<tr><th>url handler</th><td>static</td></tr>");
+			res.write("<tr><th>stem</th><td>"+stem+"</td></tr>");
+			res.write("<tr><th>suffix</th><td>"+suffix+"</td></tr>");
+			res.write("<tr><th>filename</th><td>"+filename+"</td></tr>");
+			res.write("</table>");
+			
+			res.write("</div>");
 			res.end();
 		    }
 		    else {
@@ -58,10 +70,18 @@ function routes(req,res,pathname) {
 	return function (req,res) {
 	    var google = http.createClient(80, 'maps.google.com');
 	    google_url = "/maps/api/geocode/json?latlng=" + lat(req.url) + "," + lng(req.url) + "&sensor=true";
-	
+
 	    var request = google.request('GET', google_url,{'host': 'maps.google.com'});
 	    request.end();
-	    
+
+	    // FIXME: catch() node.js errors:
+	    /* events:12
+		throw arguments[1];
+                       ^
+		Error: ETIMEDOUT, Connection timed out
+		at IOWatcher.callback (net:871:22)
+		at node.js:773:9
+	    */
 	    request.on('response', function (response) {
 		    // content_type should be: 
 		    //    'application/json; charset=UTF-8'
@@ -77,6 +97,7 @@ function routes(req,res,pathname) {
 			    log("200",req,content_type);
 			});
 		});
+
 	}
     }
     
@@ -101,10 +122,10 @@ function dispatch(req,res,pathname) {
 	res.end();
     }
 }
-
-console.log("starting google proxy.");
+var port = 8124;
+console.log("starting routekeeper server: listening on port: " + port.toString());
 
 http.createServer(function (req,res) {
 	dispatch(req,res);
-    }).listen(8124);
+    }).listen(port);
 
